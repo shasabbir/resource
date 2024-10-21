@@ -1,205 +1,201 @@
-Here’s a guide to **PostgreSQL (`psql`) basic to advanced commands**:
-
-### **Basic Commands**
+### **Basic `psql` Commands**
 1. **Connect to a PostgreSQL database**:
-   ```
+   ```bash
    psql -h <hostname> -d <dbname> -U <username> -W
    ```
-   - `-h`: Host
-   - `-d`: Database name
-   - `-U`: Username
-   - `-W`: Prompts for a password
 
 2. **List all databases**:
-   ```
+   ```bash
    \l
    ```
 
 3. **Connect to a specific database**:
-   ```
+   ```bash
    \c <dbname>
    ```
 
 4. **List all tables**:
-   ```
+   ```bash
    \dt
    ```
 
-5. **View table structure**:
-   ```
-   \d <table_name>
-   ```
-
-6. **Quit the psql terminal**:
-   ```
-   \q
-   ```
-
-7. **Execute a SQL query**:
-   ```
-   SELECT * FROM <table_name>;
-   ```
-
-8. **Insert data**:
-   ```sql
-   INSERT INTO <table_name> (column1, column2) VALUES (value1, value2);
-   ```
-
-9. **Update data**:
-   ```sql
-   UPDATE <table_name> SET column1 = value1 WHERE condition;
-   ```
-
-10. **Delete data**:
-   ```sql
-   DELETE FROM <table_name> WHERE condition;
-   ```
-
-11. **Create a new table**:
-   ```sql
-   CREATE TABLE <table_name> (
-     column1 datatype,
-     column2 datatype,
-     ...
-   );
-   ```
-
-12. **Drop a table**:
-   ```sql
-   DROP TABLE <table_name>;
-   ```
-
-### **Intermediate Commands**
-1. **Describe database objects**:
-   ```
-   \d <object_name>
-   ```
-   For example, describing a sequence or index.
-
-2. **Set output to CSV file**:
-   ```sql
-   \copy (SELECT * FROM <table_name>) TO '<output_file>.csv' WITH CSV HEADER;
-   ```
-
-3. **Import data from CSV**:
-   ```sql
-   \copy <table_name> FROM '<input_file>.csv' DELIMITER ',' CSV HEADER;
-   ```
-
-4. **Transaction management**:
-   - Begin a transaction:
-     ```sql
-     BEGIN;
-     ```
-   - Commit a transaction:
-     ```sql
-     COMMIT;
-     ```
-   - Rollback a transaction:
-     ```sql
-     ROLLBACK;
-     ```
-
-5. **List user roles**:
-   ```
-   \du
-   ```
-
-6. **Change user password**:
-   ```sql
-   ALTER USER <username> WITH PASSWORD '<new_password>';
-   ```
-
-7. **Show current database connection information**:
-   ```
-   \conninfo
-   ```
-
-8. **Show server version**:
-   ```sql
-   SELECT version();
-   ```
-
-9. **Enable or disable timing for query execution**:
-   ```
-   \timing
-   ```
-
-### **Advanced Commands**
-1. **Create an index**:
-   ```sql
-   CREATE INDEX <index_name> ON <table_name> (column);
-   ```
-
-2. **Explain a query plan** (to understand query performance):
-   ```sql
-   EXPLAIN SELECT * FROM <table_name> WHERE condition;
-   ```
-
-3. **View long-running queries**:
-   ```sql
-   SELECT * FROM pg_stat_activity WHERE state = 'active';
-   ```
-
-4. **Create a role**:
-   ```sql
-   CREATE ROLE <role_name> WITH LOGIN PASSWORD '<password>';
-   ```
-
-5. **Grant privileges to a user**:
-   ```sql
-   GRANT ALL PRIVILEGES ON DATABASE <dbname> TO <username>;
-   ```
-
-6. **View database size**:
-   ```sql
-   SELECT pg_size_pretty(pg_database_size('<dbname>'));
-   ```
-
-7. **View table size**:
-   ```sql
-   SELECT pg_size_pretty(pg_total_relation_size('<table_name>'));
-   ```
-
-8. **Backup a database**:
+5. **List all schemas**:
    ```bash
-   pg_dump -U <username> -h <host> -d <dbname> > <backup_file>.sql
-   ```
-
-9. **Restore a database**:
-   ```bash
-   psql -U <username> -h <host> -d <dbname> -f <backup_file>.sql
-   ```
-
-10. **Analyze table for performance optimization**:
-    ```sql
-    ANALYZE <table_name>;
-    ```
-
-### **Miscellaneous**
-1. **List all schemas**:
-   ```
    \dn
    ```
 
-2. **List all users**:
-   ```
-   SELECT usename FROM pg_user;
-   ```
-
-3. **Show current database**:
-   ```
-   SELECT current_database();
+6. **Show table structure (schema)**:
+   ```bash
+   \d <table_name>
    ```
 
-4. **Check for open connections**:
-   ```sql
+7. **Show all columns of a table**:
+   ```bash
+   \d+ <table_name>
+   ```
+
+8. **View all commands in `psql`**:
+   ```bash
+   \?
+   ```
+
+9. **Exit `psql`**:
+   ```bash
+   \q
+   ```
+
+### **Intermediate `psql` Commands**
+1. **Show current connection information**:
+   ```bash
+   \conninfo
+   ```
+
+2. **List all roles/users**:
+   ```bash
+   \du
+   ```
+
+3. **List current settings (configuration)**:
+   ```bash
+   SHOW ALL;
+   ```
+
+4. **View the current search path**:
+   ```bash
+   SHOW search_path;
+   ```
+
+5. **Enable query execution timing**:
+   ```bash
+   \timing
+   ```
+
+6. **Set output to a file**:
+   ```bash
+   \o <output_file>
+   ```
+
+7. **Unset output to return to default (screen)**:
+   ```bash
+   \o
+   ```
+
+8. **Display query result with aligned formatting**:
+   ```bash
+   \a
+   ```
+
+9. **Set field separator for output (CSV, for example)**:
+   ```bash
+   \pset fieldsep ','
+   ```
+
+10. **Save a query result to a CSV file**:
+    ```bash
+    \copy (SELECT * FROM <table_name>) TO '<output_file>.csv' CSV HEADER;
+    ```
+
+11. **Copy data from a CSV file into a table**:
+    ```bash
+    \copy <table_name> FROM '<input_file>.csv' CSV HEADER;
+    ```
+
+12. **List tables, views, and sequences**:
+    ```bash
+    \d
+    ```
+
+13. **List all indices of a table**:
+    ```bash
+    \di <table_name>
+    ```
+
+### **Advanced `psql` Commands**
+1. **View active connections and running queries**:
+   ```bash
    SELECT * FROM pg_stat_activity;
    ```
 
-5. **Set search path for schemas**:
-   ```sql
+2. **Show database size**:
+   ```bash
+   \db
+   ```
+
+3. **View detailed table size**:
+   ```bash
+   \dt+ <table_name>
+   ```
+
+4. **Show process ID of the `psql` session**:
+   ```bash
+   \!
+   ```
+
+5. **Set the search path (set schema priority)**:
+   ```bash
    SET search_path TO <schema_name>;
    ```
 
-These commands cover a wide range of functionality for managing PostgreSQL from basic operations to advanced tasks.
+6. **Change user password**:
+   ```bash
+   \password <username>
+   ```
+
+7. **List database objects (functions, types, etc.)**:
+   - Functions:
+     ```bash
+     \df
+     ```
+   - Aggregates:
+     ```bash
+     \da
+     ```
+   - Types:
+     ```bash
+     \dT
+     ```
+
+8. **View environment variables**:
+   ```bash
+   \set
+   ```
+
+9. **Run an external shell command from within `psql`**:
+   ```bash
+   \! <command>
+   ```
+
+10. **Change output format to `aligned` (default) or `unaligned`**:
+    - Aligned:
+      ```bash
+      \a
+      ```
+    - Unaligned (good for scripts):
+      ```bash
+      \a
+      ```
+
+11. **Turn off pager (useful for large result sets)**:
+    ```bash
+    \pset pager off
+    ```
+
+12. **Toggle expanded display mode** (useful for wide results):
+    ```bash
+    \x
+    ```
+
+13. **List privileges for a table**:
+    ```bash
+    \dp <table_name>
+    ```
+
+14. **Show `psql` variables**:
+    ```bash
+    \set
+    ```
+
+15. **Execute a SQL script file from within `psql`**:
+    ```bash
+    \i <file_path>
+    ```
