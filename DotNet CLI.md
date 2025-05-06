@@ -7,6 +7,7 @@ dotnet new webapi -n MyApi               # Web API
 dotnet new mvc -n MyMvcApp               # MVC app
 dotnet new classlib -n MyLibrary         # Class library
 dotnet new sln -n MySolution             # Create solution file
+dotnet new list                          # Get list of templates
 ```
 
 ### 🟢 Add Project to Solution
