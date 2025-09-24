@@ -149,14 +149,92 @@ def greet(name="World"):
     return f"Hello {name}"
 
 print(greet("Sabbir"))
+```
+---
 
-# Lambda
+## 🔹 10. Lambda
+
+```python
 square = lambda x: x**2
+```
+### **10.1. Lambda with `map()`**
+
+* Apply a function to **every element in a list**.
+
+```python
+nums = [1,2,3,4,5]
+squared = list(map(lambda x: x**2, nums))
+print(squared)  # [1,4,9,16,25]
 ```
 
 ---
 
-## 🔹 10. Error Handling
+### **10.2. Lambda with `filter()`**
+
+* Filter items based on a **condition**.
+
+```python
+nums = [1,2,3,4,5]
+evens = list(filter(lambda x: x % 2 == 0, nums))
+print(evens)  # [2,4]
+```
+
+---
+
+### **10.3. Lambda with `reduce()`** (from `functools`)
+
+* Reduce a list to a **single value**.
+
+```python
+from functools import reduce
+nums = [1,2,3,4,5]
+sum_all = reduce(lambda x, y: x + y, nums)
+print(sum_all)  # 15
+```
+
+---
+
+### **10.4. Lambda with `sorted()`**
+
+* Custom sorting using a lambda.
+
+```python
+students = [("Alice", 25), ("Bob", 20), ("Charlie", 23)]
+# Sort by age
+sorted_students = sorted(students, key=lambda x: x[1])
+print(sorted_students)
+# [('Bob', 20), ('Charlie', 23), ('Alice', 25)]
+```
+
+---
+
+### **10.5. Lambda Inside List Comprehensions**
+
+```python
+nums = [1,2,3,4,5]
+squared = [(lambda x: x**2)(x) for x in nums]
+print(squared)  # [1,4,9,16,25]
+```
+
+---
+
+### **10.6. Lambda in Dictionaries**
+
+```python
+funcs = {
+    "square": lambda x: x**2,
+    "cube": lambda x: x**3
+}
+
+print(funcs )  # 16
+print(funcs )    # 27
+```
+
+
+
+---
+
+## 🔹 11. Error Handling
 
 ```python
 try:
@@ -169,7 +247,7 @@ finally:
 
 ---
 
-## 🔹 11. File Handling
+## 🔹 12. File Handling
 
 ```python
 with open("test.txt", "w") as f:
@@ -181,7 +259,7 @@ with open("test.txt", "r") as f:
 
 ---
 
-## 🔹 12. Classes & OOP
+## 🔹 13. Classes & OOP
 
 ```python
 class Person:
@@ -205,7 +283,7 @@ class Student(Person):
 
 ---
 
-## 🔹 13. Modules & Packages
+## 🔹 14. Modules & Packages
 
 ```python
 import math
@@ -215,7 +293,7 @@ from datetime import datetime
 
 ---
 
-## 🔹 14. Useful Built-ins
+## 🔹 15. Useful Built-ins
 
 ```python
 nums = [1,2,3,4]
@@ -229,7 +307,7 @@ enumerate(["a","b"])  # (0,'a'), (1,'b')
 
 ---
 
-## 🔹 15. Iterators & Generators
+## 🔹 16. Iterators & Generators
 
 ```python
 def gen():
@@ -242,7 +320,7 @@ for val in gen():
 
 ---
 
-## 🔹 16. List vs Set vs Dict Comprehensions
+## 🔹 17. List vs Set vs Dict Comprehensions
 
 ```python
 [x**2 for x in range(5)]          # list
@@ -252,7 +330,7 @@ for val in gen():
 
 ---
 
-## 🔹 17. Virtual Environment (important for ML work)
+## 🔹 18. Virtual Environment (important for ML work)
 
 ```bash
 python -m venv venv
@@ -263,7 +341,7 @@ pip install numpy
 
 ---
 
-## 🔹 18. NumPy (Quick Refresher)
+## 🔹 19. NumPy (Quick Refresher)
 
 ```python
 import numpy as np
@@ -278,7 +356,7 @@ np.dot([1,2],[3,4])   # 11
 
 ---
 
-## 🔹 19. Pandas (Quick Refresher)
+## 🔹 20. Pandas (Quick Refresher)
 
 ```python
 import pandas as pd
@@ -291,7 +369,7 @@ df[df["A"]>1]
 
 ---
 
-## 🔹 20. Matplotlib (Quick Refresher)
+## 🔹 21. Matplotlib (Quick Refresher)
 
 ```python
 import matplotlib.pyplot as plt
